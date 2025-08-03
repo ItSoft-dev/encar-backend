@@ -58,6 +58,7 @@ class ComparisonListApiView(generics.ListAPIView):
     serializer_class = CarListSerializer
     queryset = Comparison.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = CustomPageNumberPagination
 
     def get_queryset(self):
         return Car.objects.filter(comparisons__user=self.request.user).select_related(

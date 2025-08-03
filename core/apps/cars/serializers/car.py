@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
-from core.apps.cars.models import Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats
-
+from core.apps.cars.models import (
+    Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing
+)
 
 class CarMediaLiserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,6 +60,12 @@ class CarSeatsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CarPricingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarPricing 
+        fields = '__all__'
+
+
 class CarDeatilSerializer(serializers.ModelSerializer):
     fuel_type = serializers.SerializerMethodField(method_name='get_fuel_type')
     color = serializers.SerializerMethodField(method_name='get_color')
@@ -69,12 +76,13 @@ class CarDeatilSerializer(serializers.ModelSerializer):
     car_multimedia = CarMultimediaSerializer()
     car_safety = CarSafetySerializer()
     car_seats = CarSeatsSerializer()
+    car_pricing = CarPricingSerializer()
 
     class Meta:
         model = Car
         fields = [
             'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
-            'car_interyer', 'car_multimedia', 'car_safety', 'car_seats'
+            'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing'
         ]
     
     def get_body_type(self, obj):
