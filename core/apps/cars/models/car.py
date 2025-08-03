@@ -154,3 +154,21 @@ class CarSeats(BaseModel):
     class Meta:
         verbose_name = 'Сиденья'
         verbose_name_plural = 'Сиденья'
+
+
+class CarPricing(BaseModel):
+    agent_service = models.PositiveBigIntegerField(verbose_name='Услуги агента')
+    car_cost = models.PositiveBigIntegerField(verbose_name='Стоимость авто')
+    expences_in_korea = models.PositiveBigIntegerField(verbose_name='расходы в Корее')
+    custom_dutie = models.PositiveBigIntegerField(verbose_name='Таможенные платежи')
+    utilsbor = models.PositiveBigIntegerField(verbose_name='Утильсбор')
+    custom_broker = models.PositiveBigIntegerField(verbose_name='Таможенный брокер')
+    car_transporter = models.PositiveBigIntegerField(verbose_name='Автовоз')
+    car = models.OneToOneField(Car, on_delete=models.CASCADE, related_name='car_pricing')
+
+    def __str__(self):
+        return f"{self.car} pricing"
+
+    class Meta:
+        verbose_name = 'расчет цены'
+        verbose_name_plural = 'расчет цены'

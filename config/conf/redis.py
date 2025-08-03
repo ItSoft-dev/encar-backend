@@ -21,6 +21,11 @@ CACHEOPS = {
         "ops": "all", 
         "timeout": 60 * 5,
     },
+    "cars.*": {
+        "ops": "all",
+        "timeout": 60 * 5,
+    }
 }
 CACHEOPS_DEGRADE_ON_FAILURE = True
-CACHEOPS_ENABLED = False
+CACHEOPS_ENABLED = True
+CACHEOPS_LOGGING = True

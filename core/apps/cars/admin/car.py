@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from core.apps.cars.models.car import Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats
-
+from core.apps.cars.models.car import Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing
 
 class CarMediaInline(admin.TabularInline):
     model = CarMedia
@@ -28,12 +27,18 @@ class CarSeatsInline(admin.StackedInline):
     extra = 0
 
 
+class CarPricingInline(admin.StackedInline):
+    model = CarPricing
+    extra = 0
+
+
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
     list_display = ['brand', 'model', 'price', 'color', 'year', 'month']
     list_filter = ['brand', 'model', 'generation', 'fuel_type', 'body_type', 'transmission','color']
     inlines = [
-        CarMediaInline, CarInteryerInline, CarSeatsInline, CarSafetyInline, CarMultimediaInline
+        CarMediaInline, CarInteryerInline, CarSeatsInline, CarSafetyInline, CarMultimediaInline,
+        CarPricingInline
     ]
 
 

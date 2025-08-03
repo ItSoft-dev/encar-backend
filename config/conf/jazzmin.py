@@ -50,6 +50,6 @@ JAZZMIN_SETTINGS = {
     "use_google_fonts_cdn": True,
     "show_ui_builder": False,
 
-    "changeform_format": "collapsible",
+    # "changeform_format": "horizon",
     "language_chooser": False,
 }
