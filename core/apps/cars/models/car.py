@@ -172,3 +172,59 @@ class CarPricing(BaseModel):
     class Meta:
         verbose_name = 'расчет цены'
         verbose_name_plural = 'расчет цены'
+
+
+class CarInspection(models.Model):
+    car = models.OneToOneField(Car, on_delete=models.CASCADE, related_name="car_inspections")
+    inspection_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата инспекции')
+    diagnosis_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата диагностики')
+    vin = models.CharField(max_length=100, null=True, blank=True, verbose_name='VIN')
+    engine_type = models.CharField(max_length=100, null=True, blank=True, verbose_name='Тип мотора')
+    incidents = models.CharField(max_length=255, null=True, blank=True, verbose_name='Инциденты')
+    year = models.CharField(max_length=10, null=True, blank=True, verbose_name='Год модели')
+    usage_type = models.CharField(max_length=255, null=True, blank=True, verbose_name='Тип использования')
+    front_left_door = models.CharField(max_length=50, null=True, blank=True, verbose_name='Передняя левая дверь')
+    front_right_door = models.CharField(max_length=50, null=True, blank=True, verbose_name='Передняя правая дверь')
+    rear_left_door = models.CharField(max_length=50, null=True, blank=True, verbose_name='Задняя левая дверь')
+    rear_right_door = models.CharField(max_length=50, null=True, blank=True, verbose_name='Задняя правая дверь')
+    hood = models.CharField(max_length=50, null=True, blank=True, verbose_name='Капот')
+    trunk = models.CharField(max_length=50, null=True, blank=True, verbose_name='Крышка багажника')
+
+    def __str__(self):
+        return f"{self.car} inspection"
+    
+    class Meta:
+        verbose_name = 'Проверка авто'
+        verbose_name_plural = 'Проверка авто'
+
+
+class CarInspectionIncident(models.Model):
+    inspection = models.ForeignKey(CarInspection, on_delete=models.CASCADE, related_name="car_incidents")
+    name = models.CharField(max_length=255)  
+    value = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Страховые случаи"
+        verbose_name_plural = "Страховые случаи"
+
+
+class InspectionSection(models.Model):
+    inspection = models.ForeignKey(CarInspection, on_delete=models.CASCADE, related_name="sections")
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Внутренняя инспекция'
+        verbose_name_plural = 'Внутренняя инспекция'
+
+
+class InspectionField(models.Model):
+    section = models.ForeignKey(InspectionSection, on_delete=models.CASCADE, related_name="fields")
+    name = models.CharField(max_length=255)  
+    status = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = "Внутренняя инспекция"
+        verbose_name_plural = "Внутренняя инспекция"

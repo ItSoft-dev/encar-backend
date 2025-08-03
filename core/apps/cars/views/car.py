@@ -26,7 +26,7 @@ class CarDetailApiView(generics.RetrieveAPIView):
     serializer_class = serializers.CarDeatilSerializer
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'body_type', 'transmission', 'color',
-        'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing'
+        'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing', 'car_inspections'
     ).prefetch_related('car_medias')
     lookup_field = 'id'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.apps.cars.models import (
-    Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing
+    Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspectionIncident, CarInspection, InspectionSection, InspectionField
 )
 
 class CarMediaLiserSerializer(serializers.ModelSerializer):
@@ -66,6 +66,36 @@ class CarPricingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CarIncidentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarInspectionIncident
+        fields = ['id', 'name', 'value']
+
+
+class InspectionFieldSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InspectionField
+        fields = ['id', 'name', 'status']
+
+
+class InspectionSectionSerializer(serializers.ModelSerializer):
+    fields = InspectionFieldSerializer(many=True)
+    class Meta:
+        model = InspectionSection
+        fields = [
+            'id', 'title', 'fields'
+        ]
+
+
+class CarInspectionSerializer(serializers.ModelSerializer):
+    car_incidents = CarIncidentSerializer(many=True)
+    sections = InspectionSectionSerializer(many=True)
+
+    class Meta:
+        model = CarInspection
+        fields = '__all__'
+
+
 class CarDeatilSerializer(serializers.ModelSerializer):
     fuel_type = serializers.SerializerMethodField(method_name='get_fuel_type')
     color = serializers.SerializerMethodField(method_name='get_color')
@@ -77,12 +107,14 @@ class CarDeatilSerializer(serializers.ModelSerializer):
     car_safety = CarSafetySerializer()
     car_seats = CarSeatsSerializer()
     car_pricing = CarPricingSerializer()
+    car_inspections = CarInspectionSerializer()
 
     class Meta:
         model = Car
         fields = [
             'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
-            'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing'
+            'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing',
+            'car_inspections',
         ]
     
     def get_body_type(self, obj):
