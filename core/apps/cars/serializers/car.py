@@ -1,0 +1,102 @@
+from rest_framework import serializers
+
+from core.apps.cars.models import Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats
+
+
+class CarMediaLiserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarMedia 
+        fields = [
+            'id', 'media'
+        ]
+
+
+class CarListSerializer(serializers.ModelSerializer):
+    fuel_type = serializers.SerializerMethodField(method_name='get_fuel_type')
+    color = serializers.SerializerMethodField(method_name='get_color')
+    car_medias = CarMediaLiserSerializer(many=True)
+    
+    class Meta:
+        model = Car
+        fields = [
+            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias'
+        ]
+
+    def get_fuel_type(self, obj):
+        return {
+            'id': obj.fuel_type.id,
+            'name': obj.fuel_type.name
+        }
+
+    def get_color(self, obj):
+        return {
+            'id': obj.color.id,
+            'name': obj.color.name
+        }
+    
+
+class CarInteryerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarInteryer
+        fields = '__all__'
+
+
+class CarMultimediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarMultimedia
+        fields = '__all__'
+
+
+class CarSafetySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarSafety
+        fields = '__all__'
+    
+
+class CarSeatsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarSeats
+        fields = '__all__'
+
+
+class CarDeatilSerializer(serializers.ModelSerializer):
+    fuel_type = serializers.SerializerMethodField(method_name='get_fuel_type')
+    color = serializers.SerializerMethodField(method_name='get_color')
+    car_medias = CarMediaLiserSerializer(many=True)
+    transmission = serializers.SerializerMethodField(method_name='get_transmission')
+    body_type = serializers.SerializerMethodField(method_name='get_body_type')
+    car_interyer = CarInteryerSerializer()
+    car_multimedia = CarMultimediaSerializer()
+    car_safety = CarSafetySerializer()
+    car_seats = CarSeatsSerializer()
+
+    class Meta:
+        model = Car
+        fields = [
+            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
+            'car_interyer', 'car_multimedia', 'car_safety', 'car_seats'
+        ]
+    
+    def get_body_type(self, obj):
+        return {
+            'id': obj.body_type.id,
+            'name': obj.body_type.name
+        }
+
+    def get_transmission(self, obj):
+        return {
+            'id': obj.transmission.id,
+            'name': obj.transmission.name
+        }
+
+    def get_fuel_type(self, obj):
+        return {
+            'id': obj.fuel_type.id,
+            'name': obj.fuel_type.name
+        }
+
+    def get_color(self, obj):
+        return {
+            'id': obj.color.id,
+            'name': obj.color.name
+        }

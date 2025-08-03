@@ -1,0 +1,42 @@
+from django.db import transaction
+
+from rest_framework import serializers
+
+from core.apps.accounts.models import User
+
+
+class RegisterSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
+    confirm_password = serializers.CharField()
+
+    def validate_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("User with this email already exists")
+        return value
+    
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError("Two password must be same")
+        return data
+    
+    def create(self, validated_data):
+        with transaction.atomic():
+            email = validated_data.get('email')
+            full_name = email.split('@')[0] if email else ''
+            user = User.objects.create(
+                email=validated_data.get('email'),
+                role='user',
+                full_name=full_name
+            )
+            user.set_password(validated_data.get('password'))
+            user.save()
+            return user
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id', 'email', 'full_name', 
+        ]
