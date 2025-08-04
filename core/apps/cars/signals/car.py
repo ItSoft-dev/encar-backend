@@ -22,7 +22,7 @@ def send_car_to_channel(sender, instance, created, **kwargs):
     if instance.image:
         image_url = instance.image.url
         full_image_url = f"{env.str("DOMAIN")}{image_url}"
-
+        print(full_image_url, '-------------------------------------------')
         telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendPhoto"
         data = {
             "chat_id": env.str('CHANNEL_USERNAME'),
