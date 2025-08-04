@@ -6,5 +6,5 @@ class CarsConfig(AppConfig):
     name = 'core.apps.cars'
 
     def ready(self):
-        from . import admin 
-        
+        from . import admin
+        from core.apps.cars import signals

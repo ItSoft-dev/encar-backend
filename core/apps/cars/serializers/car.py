@@ -15,12 +15,11 @@ class CarMediaLiserSerializer(serializers.ModelSerializer):
 class CarListSerializer(serializers.ModelSerializer):
     fuel_type = serializers.SerializerMethodField(method_name='get_fuel_type')
     color = serializers.SerializerMethodField(method_name='get_color')
-    car_medias = CarMediaLiserSerializer(many=True)
     
     class Meta:
         model = Car
         fields = [
-            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias'
+            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'image'
         ]
 
     def get_fuel_type(self, obj):
@@ -112,7 +111,7 @@ class CarDeatilSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = [
-            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
+            'id', 'name', 'image', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
             'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing',
             'car_inspections',
         ]

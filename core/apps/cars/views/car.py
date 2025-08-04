@@ -13,8 +13,6 @@ class CarListApiView(generics.ListAPIView):
     serializer_class = serializers.CarListSerializer
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'color'
-    ).prefetch_related(
-        'car_medias', 'car_interyer', 'car_multimedia', 'car_safety', 'car_seats'
     )
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CustomPageNumberPagination
