@@ -55,7 +55,6 @@ class CarAdmin(admin.ModelAdmin):
         CarMediaInline, CarInteryerInline, CarSeatsInline, CarSafetyInline, CarMultimediaInline,
         CarPricingInline, CarInspectionInline
     ]
-    autocomplete_fields = ['brand', 'model', 'color', 'fuel_type']
 
 
 @admin.register(CarMedia)
