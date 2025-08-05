@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.apps.cars.models import (
-    Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspectionIncident, CarInspection, InspectionSection, InspectionField
+    Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspectionIncident, CarInspection, InspectionSection, InspectionField, Like, Comparison
 )
 
 class CarMediaLiserSerializer(serializers.ModelSerializer):
@@ -15,12 +15,22 @@ class CarMediaLiserSerializer(serializers.ModelSerializer):
 class CarListSerializer(serializers.ModelSerializer):
     fuel_type = serializers.SerializerMethodField(method_name='get_fuel_type')
     color = serializers.SerializerMethodField(method_name='get_color')
+    like = serializers.SerializerMethodField(method_name='get_like')
+    comparison = serializers.SerializerMethodField(method_name='get_comparison')
+    car_medias = CarMediaLiserSerializer(many=True)
     
     class Meta:
         model = Car
         fields = [
-            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'image'
+            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'like',
+            'comparison', 'car_medias'
         ]
+
+    def get_like(self, obj):
+        return Like.objects.filter(user=self.context.get('user')).exists()
+    
+    def get_comparison(self, obj):
+        return Comparison.objects.filter(user=self.context.get('user')).exists()
 
     def get_fuel_type(self, obj):
         return {
@@ -111,7 +121,7 @@ class CarDeatilSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = [
-            'id', 'name', 'image', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
+            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
             'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing',
             'car_inspections',
         ]

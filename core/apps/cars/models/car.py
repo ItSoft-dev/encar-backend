@@ -20,7 +20,6 @@ class Car(BaseModel):
     engine_capacity = models.PositiveIntegerField()
     miliage = models.PositiveBigIntegerField()
     name = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='car/image/', null=True)
 
     def __str__(self):
         return self.name

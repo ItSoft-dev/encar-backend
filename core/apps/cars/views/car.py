@@ -13,11 +13,17 @@ class CarListApiView(generics.ListAPIView):
     serializer_class = serializers.CarListSerializer
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'color'
-    )
+    ).prefetch_related('likes', 'comparisons', 'car_medias')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = CarFilter
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        if self.request.user.is_authenticated:
+            context['user'] = self.request.user
+        return context
 
 
 class CarDetailApiView(generics.RetrieveAPIView):
