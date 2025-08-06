@@ -38,5 +38,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id', 'email', 'full_name', 
+            'id', 'email', 'full_name', 'phone', 'password',
         ]
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def update(self, instance, validated_data):
+        instance.email = validated_data.get('email', instance.email)
+        instance.full_name = validated_data.get('full_name', instance.full_name)
+        instance.phone = validated_data.get('phone', instance.phone)
+        if validated_data.get('password'):
+            instance.set_password(validated_data.get('password'))
+        instance.save()
+        return instance
