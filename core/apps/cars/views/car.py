@@ -39,7 +39,8 @@ class CarDetailApiView(generics.RetrieveAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        context['user'] = self.request.user
+        if self.request.user.is_authenticated:
+            context['user'] = self.request.user
         return context
     
 class CarSimilarApiView(generics.GenericAPIView):
