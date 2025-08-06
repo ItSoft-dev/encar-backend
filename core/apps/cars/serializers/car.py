@@ -27,10 +27,10 @@ class CarListSerializer(serializers.ModelSerializer):
         ]
 
     def get_like(self, obj):
-        return Like.objects.filter(user=self.context.get('user')).exists()
+        return Like.objects.filter(user=self.context.get('user'), car=obj).exists()
     
     def get_comparison(self, obj):
-        return Comparison.objects.filter(user=self.context.get('user')).exists()
+        return Comparison.objects.filter(user=self.context.get('user'), cars=obj).exists()
 
     def get_fuel_type(self, obj):
         return {
