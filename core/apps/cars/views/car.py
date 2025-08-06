@@ -31,9 +31,13 @@ class CarDetailApiView(generics.RetrieveAPIView):
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'body_type', 'transmission', 'color',
         'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing', 'car_inspections'
-    ).prefetch_related('car_medias')
+    ).prefetch_related('car_medias', 'like', 'comparison')
     lookup_field = 'id'
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user'] = self.request.user
+        return context
+    
 # class Car

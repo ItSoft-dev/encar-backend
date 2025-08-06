@@ -117,15 +117,23 @@ class CarDeatilSerializer(serializers.ModelSerializer):
     car_seats = CarSeatsSerializer()
     car_pricing = CarPricingSerializer()
     car_inspections = CarInspectionSerializer()
+    like = serializers.SerializerMethodField(method_name='get_like')
+    comparison = serializers.SerializerMethodField(method_name='get_comparison')
 
     class Meta:
         model = Car
         fields = [
             'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
             'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing',
-            'car_inspections',
+            'car_inspections', 'like', 'comparison',
         ]
     
+    def get_like(self, obj):
+        return Like.objects.filter(user=self.context.get('user'), car=obj).exists()
+    
+    def get_comparison(self, obj):
+        return Comparison.objects.filter(user=self.context.get('user'), cars=obj).exists()
+
     def get_body_type(self, obj):
         return {
             'id': obj.body_type.id,
