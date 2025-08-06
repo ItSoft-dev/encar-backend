@@ -13,7 +13,6 @@ class LikeApiView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, car_id):
-        print("Headers", request.headers)
         car = get_object_or_404(Car, id=car_id)
         like, created = Like.objects.get_or_create(car=car, user=request.user)
         if not created:
@@ -23,7 +22,7 @@ class LikeApiView(generics.GenericAPIView):
 
 class LikedCarListApiView(generics.ListAPIView):
     serializer_class = CarListSerializer
-    queryset = Like.objects.all()
+    queryset = Car.objects.all()
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = CustomPageNumberPagination
 
@@ -55,7 +54,7 @@ class ComparisonApiView(generics.GenericAPIView):
 
 class ComparisonListApiView(generics.ListAPIView):
     serializer_class = CarListSerializer
-    queryset = Comparison.objects.all()
+    queryset = Car.objects.all()
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = CustomPageNumberPagination
 
