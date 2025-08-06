@@ -9,3 +9,4 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'https://api.kasimovstudio.uz'
 ]
+CORS_ALLOW_ALL_ORIGINS = True

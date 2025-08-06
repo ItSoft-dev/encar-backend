@@ -7,20 +7,19 @@ from core.apps.cars.models import Like, Comparison, Car
 from core.apps.cars.serializers.car import CarListSerializer
 from core.apps.shared.pagination.custom import CustomPageNumberPagination
 
-
 class LikeApiView(generics.GenericAPIView):
     serializer_class = None
     queryset = Like.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, car_id):
+        print("Headers", request.headers)
         car = get_object_or_404(Car, id=car_id)
         like, created = Like.objects.get_or_create(car=car, user=request.user)
         if not created:
             like.delete()
             return Response({'message': 'unliked'}, status=200)
         return Response({'message': 'liked'}, status=200)
-    
 
 class LikedCarListApiView(generics.ListAPIView):
     serializer_class = CarListSerializer

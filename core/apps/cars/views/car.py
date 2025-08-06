@@ -14,7 +14,7 @@ class CarListApiView(generics.ListAPIView):
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'color'
     ).prefetch_related('likes', 'comparisons', 'car_medias')
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = CarFilter
@@ -33,4 +33,4 @@ class CarDetailApiView(generics.RetrieveAPIView):
         'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing', 'car_inspections'
     ).prefetch_related('car_medias')
     lookup_field = 'id'
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]

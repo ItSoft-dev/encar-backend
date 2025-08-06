@@ -5,7 +5,7 @@ from core.apps.accounts.managers.user import UserManager
 from core.apps.shared.models import BaseModel
 
 
-class User(BaseModel, AbstractUser):
+class User(AbstractUser, BaseModel):
     email = models.EmailField(unique=True)
     role = models.CharField(
         choices=[('user', 'User'), ('admin', 'Admin')], default='user', max_length=10

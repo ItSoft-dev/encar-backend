@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from core.apps.accounts.serializers import user as serializers
 from core.apps.accounts.models import User
+from core.apps.accounts.permissions.custom import IsAuthenticatedUser
 
 
 class RegisterApiView(generics.GenericAPIView):
@@ -23,10 +24,11 @@ class RegisterApiView(generics.GenericAPIView):
 class UserProfileApiView(generics.GenericAPIView):
     serializer_class = serializers.UserProfileSerializer
     queryset = User.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticatedUser]
 
     def get(self, request):
         user = request.user
+        print(user.is_authenticated)
         serializer = self.serializer_class(user)
         return Response(serializer.data, status=200)
 
@@ -34,7 +36,7 @@ class UserProfileApiView(generics.GenericAPIView):
 class UserProfileUpdateApiView(generics.GenericAPIView):
     serializer_class = serializers.UserProfileSerializer
     queryset = User.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticatedUser]
 
     def put(self, request):
         user = request.user

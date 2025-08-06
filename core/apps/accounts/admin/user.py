@@ -9,6 +9,7 @@ class CustomUserAmin(UserAdmin):
         (None, {"fields": ("email", "password")}),
         ("Personal info", {"fields": ("full_name", "role")}),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
+        ('Permissions', {"fields": ('is_superuser', 'is_active', 'is_staff')})
     )
     add_fieldsets = (
         (

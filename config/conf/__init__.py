@@ -1,4 +1,4 @@
-from .drf_yasg import *
+# from .drf_yasg import *
 from .rest_framework import *
 from .rest_framework_simplejwt import *
 from .redis import *
