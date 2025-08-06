@@ -27,7 +27,6 @@ class CarListSerializer(serializers.ModelSerializer):
         ]
 
     def get_like(self, obj):
-        print(Like.objects.filter(user=self.context.get('user'), car=obj).exists())
         return Like.objects.filter(user=self.context.get('user'), car=obj).exists()
     
     def get_comparison(self, obj):
