@@ -47,3 +47,15 @@ class UserProfileUpdateApiView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
     
+class WhoAmI(generics.GenericAPIView):
+    serializer_class = None
+    queryset = None
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        return Response(
+            {
+                'username': request.user.username,
+                'id': request.user.id
+            }
+        )
