@@ -34,3 +34,6 @@ class CarDetailApiView(generics.RetrieveAPIView):
     ).prefetch_related('car_medias')
     lookup_field = 'id'
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+# class Car
