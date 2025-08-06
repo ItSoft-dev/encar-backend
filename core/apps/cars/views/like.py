@@ -35,6 +35,10 @@ class LikedCarListApiView(generics.ListAPIView):
             'car_medias', 'likes', 'comparisons'
         ).distinct()
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user'] = self.request.user
+        return context
 
 class ComparisonApiView(generics.GenericAPIView):
     serializer_class = None
@@ -62,3 +66,8 @@ class ComparisonListApiView(generics.ListAPIView):
         return Car.objects.filter(comparisons__user=self.request.user).select_related(
             'fuel_type', 'color',
         ).prefetch_related('car_medias', 'likes', 'comparisons').distinct()
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user'] = self.request.user
+        return context
