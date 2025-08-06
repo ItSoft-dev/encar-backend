@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
@@ -14,7 +16,7 @@ class CarListApiView(generics.ListAPIView):
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'color'
     ).prefetch_related('likes', 'comparisons', 'car_medias')
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = CarFilter
@@ -31,7 +33,7 @@ class CarDetailApiView(generics.RetrieveAPIView):
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'body_type', 'transmission', 'color',
         'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing', 'car_inspections'
-    ).prefetch_related('car_medias', 'like', 'comparison')
+    ).prefetch_related('car_medias', 'likes', 'comparisons')
     lookup_field = 'id'
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
@@ -40,4 +42,13 @@ class CarDetailApiView(generics.RetrieveAPIView):
         context['user'] = self.request.user
         return context
     
-# class Car
+class CarSimilarApiView(generics.GenericAPIView):
+    serializer_class = serializers.CarListSerializer
+    queryset = Car.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request, id):
+        car = get_object_or_404(Car, id=id)
+        cars = Car.objects.filter(brand=car.brand, fuel_type=car.fuel_type)
+        serializer = self.serializer_class(cars, many=True)
+        return Response(serializer.data, status=200)

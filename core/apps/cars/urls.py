@@ -13,6 +13,7 @@ urlpatterns = [
     path('color/list/', feature_views.ColorListApiView.as_view()),
 
     path('car/list/', car_views.CarListApiView.as_view()),
+    path('car/<uuid:id>/similar/', car_views.CarSimilarApiView.as_view()),
     path('car/<uuid:id>/', car_views.CarDetailApiView.as_view()),
 
     path('like/<uuid:car_id>/', like_views.LikeApiView.as_view()),
