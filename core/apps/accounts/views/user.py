@@ -38,9 +38,9 @@ class UserProfileUpdateApiView(generics.GenericAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticatedUser]
 
-    def put(self, request):
+    def patch(self, request):
         user = request.user
-        serializer = self.serializer_class(data=request.data, instance=user)
+        serializer = self.serializer_class(data=request.data, instance=user, partial=True)c
         if serializer.is_valid():
             serializer.save()
             return Response({"message": "profile updated!"}, status=200)
