@@ -40,7 +40,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'email', 'full_name', 'phone', 'password',
         ]
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True}, 'full_name': {'required': False}, 'phone': {'required': False}}
 
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.email)
