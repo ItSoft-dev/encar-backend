@@ -10,8 +10,8 @@ class User(AbstractUser, BaseModel):
     role = models.CharField(
         choices=[('user', 'User'), ('admin', 'Admin')], default='user', max_length=10
     )
-    full_name = models.CharField(max_length=200)
-    phone = models.CharField(max_length=20, null=True)
+    full_name = models.CharField(max_length=200, null=True, blank=True)
+    phone = models.CharField(max_length=20, null=True, blank=True)
     
     username = None
     USERNAME_FIELD = 'email'
