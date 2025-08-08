@@ -28,10 +28,11 @@ urlpatterns = [
         [
             path('auth/', include('core.apps.accounts.urls')),
             path('cars/', include('core.apps.cars.urls')),
+            path('common/', include('core.apps.common.urls')),
         ]
     )),
-    path('who_am_i/', WhoAmI.as_view()),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 # Media and Static Files

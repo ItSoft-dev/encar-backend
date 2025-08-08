@@ -50,6 +50,6 @@ class CarSimilarApiView(generics.GenericAPIView):
 
     def get(self, request, id):
         car = get_object_or_404(Car, id=id)
-        cars = Car.objects.filter(brand=car.brand, fuel_type=car.fuel_type)
+        cars = Car.objects.filter(brand=car.brand, fuel_type=car.fuel_type)[:6]
         serializer = self.serializer_class(cars, many=True)
         return Response(serializer.data, status=200)

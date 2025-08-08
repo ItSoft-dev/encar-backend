@@ -24,3 +24,17 @@ class User(AbstractUser, BaseModel):
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
+
+
+class VerificationCode(BaseModel):
+    code = models.PositiveSmallIntegerField()
+    expiration_time = models.DateTimeField()
+    verified = models.BooleanField(default=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='codes')
+
+    def __str__(self):
+        return self.code
+    
+    class Meta:
+        verbose_name = 'Код подтверждения'
+        verbose_name_plural = 'Код подтверждения'

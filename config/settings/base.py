@@ -22,6 +22,7 @@ APPS = [
     'core.apps.accounts',
     'core.apps.shared',
     'core.apps.cars',
+    'core.apps.common',
 ]
 
 PACKAGES = [
@@ -30,6 +31,8 @@ PACKAGES = [
     'rest_framework_simplejwt',
     'corsheaders',
     'django_filters',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 DJANGO_APPS = [
@@ -134,6 +137,9 @@ STATIC_ROOT = BASE_DIR / 'resources/static'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'resources/media'
+
+CKEDITOR_UPLOAD_PATH = "resources/uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -294,3 +300,11 @@ CSRF_TRUSTED_ORIGINS = [
     'https://api.kasimovstudio.uz'
 ]
 CORS_ALLOW_ALL_ORIGINS = True
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}
