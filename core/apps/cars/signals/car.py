@@ -27,8 +27,8 @@ def send_car_to_channel(sender, instance, created, **kwargs):
         f"Тип кузова: {instance.body_type.name}"
     )
 
-    if instance.car_medias.media:
-        image_url = instance.car_medias.media.url
+    if instance.car_medias.exists():
+        image_url = instance.car_medias.first().media.url
         full_image_url = f"{env.str("DOMAIN")}{image_url}"
         telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendPhoto"
         data = {
