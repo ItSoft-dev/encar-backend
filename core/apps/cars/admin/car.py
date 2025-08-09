@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 
-from core.apps.cars.models.car import Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspection, CarInspectionIncident, InspectionField, InspectionSection
+from core.apps.cars.models.car import Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspection, CarInspectionIncident, InspectionField, InspectionSection,Region
 
 
 class CarMediaInline(admin.TabularInline):
@@ -129,3 +129,8 @@ class InspectionFieldAdmin(admin.ModelAdmin):
 
     def has_module_permission(self, request):
         return False
+
+
+@admin.register(Region)
+class RegionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']

@@ -21,4 +21,5 @@ urlpatterns = [
 
     path('comparison/<uuid:car_id>/', like_views.ComparisonApiView.as_view()),
     path('comparison/list/', like_views.ComparisonListApiView.as_view()),
+    path('region/list/', car_views.RegionListApiView.as_view()),
 ]

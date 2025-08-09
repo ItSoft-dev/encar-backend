@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
 from core.apps.cars.models import (
-    Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspectionIncident, CarInspection, InspectionSection, InspectionField, Like, Comparison
+    Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspectionIncident, CarInspection, InspectionSection, InspectionField, Like, Comparison,
+    Region
 )
 
 class CarMediaLiserSerializer(serializers.ModelSerializer):
@@ -157,3 +158,9 @@ class CarDeatilSerializer(serializers.ModelSerializer):
             'id': obj.color.id,
             'name': obj.color.name
         }
+    
+
+class RegionListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region 
+        fields = ['id', 'name']

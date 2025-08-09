@@ -17,7 +17,7 @@ class CarFilter(django_filters.FilterSet):
     class Meta:
         model = Car
         fields = [
-            'brand', 'model', 'generation', 'fuel_type', 'body_type', 'transmission', 'color',
+            'brand', 'model', 'generation', 'fuel_type', 'body_type', 'transmission', 'color', 'region',
         ]
     
     def filter_by_year_range(self, queryset, name, value):

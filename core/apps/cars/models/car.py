@@ -5,6 +5,16 @@ from core.apps.cars.models.feture import (
     Brand, Model, Generation, FuelType, BodyType, Transmission, Color
 )
 
+class Region(BaseModel):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'страна'
+        verbose_name_plural = 'страны'
+
 
 class Car(BaseModel):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='cars')
@@ -20,6 +30,7 @@ class Car(BaseModel):
     engine_capacity = models.PositiveIntegerField()
     miliage = models.PositiveBigIntegerField()
     name = models.CharField(max_length=200)
+    region = models.ForeignKey(Region, on_delete=models.SET_NULL, related_name='cars', null=True)
 
     def __str__(self):
         return self.name
@@ -27,7 +38,7 @@ class Car(BaseModel):
     class Meta:
         verbose_name = 'автомобил'
         verbose_name_plural = 'автомобили'
-    
+        
 
 class CarMedia(BaseModel):
     media = models.ImageField(upload_to='car/media/')

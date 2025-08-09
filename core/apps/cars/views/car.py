@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from core.apps.cars.models import Car
+from core.apps.cars.models import Car, Region
 from core.apps.cars.serializers import car as serializers
 from core.apps.shared.pagination.custom import CustomPageNumberPagination
 from core.apps.cars.filters.car import CarFilter
@@ -53,3 +53,8 @@ class CarSimilarApiView(generics.GenericAPIView):
         cars = Car.objects.filter(brand=car.brand, fuel_type=car.fuel_type)[:6]
         serializer = self.serializer_class(cars, many=True)
         return Response(serializer.data, status=200)
+    
+
+class RegionListApiView(generics.ListAPIView):
+    serializer_class = serializers.RegionListSerializer
+    queryset = Region.objects.all()
