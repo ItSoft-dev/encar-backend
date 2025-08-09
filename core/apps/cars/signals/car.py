@@ -13,7 +13,7 @@ def send_car_to_channel(sender, instance, created, **kwargs):
     #     return
 
     caption = (
-        f"🚗 Новое объявление:\n" 
+        f"🚗 Новое объявление:\n\n" 
 
         f"{instance.name}\n"
 
@@ -25,6 +25,7 @@ def send_car_to_channel(sender, instance, created, **kwargs):
         f"Цвет: {instance.color.name}\n"
         f"Топливо: {instance.fuel_type.name}\n"
         f"Тип кузова: {instance.body_type.name}\n"
+        f"Страны: {instance.region.name}"
     )
 
     if instance.car_medias.exists():
