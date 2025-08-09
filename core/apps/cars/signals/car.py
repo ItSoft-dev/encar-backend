@@ -27,12 +27,12 @@ def send_car_to_channel(sender, instance, created, **kwargs):
         f"Тип кузова: {instance.body_type.name}\n"
         f"Страны: {instance.region.name}\n"
         f"Полная информация об автомобиле на сайте "
-        f"<a href='https://gm-car.vercel.app/cars/{instance.id}'>сайте</a>\n\n"
-        f"🌐 На сайте <a href='https://gm-car.vercel.app/search-auto?brand={instance.brand.id}'>сайте</a> "
+        f"<a href='{env.str("FRONTEND_URL")}/cars/{instance.id}'>сайте</a>\n\n"
+        f"🌐 На сайте <a href='{env.str("FRONTEND_URL")}/search-auto?brand={instance.brand.id}'>сайте</a> "
         f"вы можете создать подписку и получать через бота или на почту только те авто, "
         f"которые соответствуют выбранным критериям.\n\n"
         f"❓ Запросить дополнительную информацию по автомобилю можно у нашего менеджера "
-        f"<a href='https://t.me/user_py'>менеджера</a>"
+        f"<a href='{env.str("MANAGER")}'>менеджера</a>"
     )
 
     if instance.car_medias.exists():
