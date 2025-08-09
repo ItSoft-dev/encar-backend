@@ -1,45 +1,52 @@
-# import requests
+import requests
 
-# from django.db.models.signals import post_save
-# from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-# from config.env import env
-# from core.apps.cars.models import Car
+from config.env import env
+from core.apps.cars.models import Car
 
 
-# @receiver(post_save, sender=Car)
-# def send_car_to_channel(sender, instance, created, **kwargs):
-#     # if not created:
-#     #     return
+@receiver(post_save, sender=Car)
+def send_car_to_channel(sender, instance, created, **kwargs):
+    # if not created:
+    #     return
 
-#     caption = (
-#         f"🚗 Yangi mashina qo‘shildi:\n\n"
-#         f"🆔 ID: {instance.id}\n"
-#         f"📌 Nomi: {instance.name}\n"
-#         f"💰 Narxi: {instance.price if hasattr(instance, 'price') else 'Nomaʼlum'}"
-#     )
+    caption = (
+        f"🚗 Новое объявление:"
 
-#     if instance.image:
-#         image_url = instance.image.url
-#         full_image_url = f"{env.str("DOMAIN")}{image_url}"
-#         print(full_image_url, '-------------------------------------------')
-#         telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendPhoto"
-#         data = {
-#             "chat_id": env.str('CHANNEL_USERNAME'),
-#             "photo": full_image_url,
-#             "caption": caption,
-#             "parse_mode": "HTML"
-#         }
-#     else:
-#         telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendMessage"
-#         data = {
-#             "chat_id": env.str('CHANNEL_USERNAME'),
-#             "text": caption,
-#             "parse_mode": "HTML"
-#         }
+        f"{instance.name}"
 
-#     try:
-#         res = requests.post(telegram_url, data=data, timeout=5)
-#     except requests.exceptions.RequestException as e:
-#         print(f"Telegramga yuborishda xatolik: {e}")
-#     print(f'{res.json()}-----------------------------------------')
+        f"Цена в рублях: {instance.price}"
+        f"Год выпуска: {instance.year}" 
+        f"Пробег: {instance.miliage}"
+        f"Объем двигателя: {instance.engine_capacity}"
+        f"Трансмиссия: {instance.transmission.name}" 
+        f"Цвет: {instance.color.name}"
+        f"Топливо: {instance.fuel_type.name}"
+        f"Тип кузова: {instance.body_type.name}"
+    )
+
+    if instance.car_medias.media:
+        image_url = instance.car_medias.media.url
+        full_image_url = f"{env.str("DOMAIN")}{image_url}"
+        telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendPhoto"
+        data = {
+            "chat_id": env.str('CHANNEL_USERNAME'),
+            "photo": full_image_url,
+            "caption": caption,
+            "parse_mode": "HTML"
+        }
+    else:
+        telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendMessage"
+        data = {
+            "chat_id": env.str('CHANNEL_USERNAME'),
+            "text": caption,
+            "parse_mode": "HTML"
+        }
+
+    try:
+        res = requests.post(telegram_url, data=data, timeout=5)
+    except requests.exceptions.RequestException as e:
+        print(f"Telegramga yuborishda xatolik: {e}")
+    print(f'{res.json()}-----------------------------------------')
