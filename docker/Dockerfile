@@ -21,8 +21,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/
 
 COPY . /app/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txtw
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8659
-CMD ["gunicorn", "--bind", "0.0.0.0:8659", "config.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8659", "config.wsgi:application", "--workers", "3", "--timeout", "120"]
