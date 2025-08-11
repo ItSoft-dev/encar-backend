@@ -23,7 +23,7 @@ RUN apt-get update && \
 
 COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 8659
 CMD ["gunicorn", "--bind", "0.0.0.0:8659", "config.wsgi:application"]
