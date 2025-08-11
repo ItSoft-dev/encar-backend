@@ -8,18 +8,17 @@ WORKDIR /app
 COPY requirements.txt /app/
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        build-essential \
-        gcc \
-        tesseract-ocr \
-        libtesseract-dev \
-        libpython3-dev \
-        libpq-dev \
-        python3-tk \
-        tk \
-        libgl1-mesa-glx && \
+    apt-get install -y \
+    gdal-bin \
+    libgdal-dev \
+    python3-gdal \
+    libgeos-dev \
+    libproj-dev \
+    g++ \
+    make \
+    wkhtmltopdf && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/
 
 COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
