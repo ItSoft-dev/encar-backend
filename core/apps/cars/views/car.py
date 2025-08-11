@@ -15,7 +15,7 @@ class CarListApiView(generics.ListAPIView):
     serializer_class = serializers.CarListSerializer
     queryset = Car.objects.select_related(
         'brand', 'model', 'generation', 'fuel_type', 'color'
-    ).prefetch_related('likes', 'comparisons', 'car_medias')
+    ).prefetch_related('likes', 'comparisons', 'car_medias').exclude(is_sold=True)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CustomPageNumberPagination
     filter_backends = [DjangoFilterBackend]

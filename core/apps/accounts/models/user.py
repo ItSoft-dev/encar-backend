@@ -12,6 +12,7 @@ class User(AbstractUser, BaseModel):
     )
     full_name = models.CharField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
+    region = models.ForeignKey("cars.Region", on_delete=models.SET_NULL, related_name='users', null=True)
     
     username = None
     USERNAME_FIELD = 'email'

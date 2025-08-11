@@ -5,6 +5,22 @@ from django.urls import reverse
 from core.apps.cars.models.car import Car, CarMedia, CarInteryer, CarMultimedia, CarSafety, CarSeats, CarPricing, CarInspection, CarInspectionIncident, InspectionField, InspectionSection,Region
 
 
+class RegionRestrictedAdmin(admin.ModelAdmin):
+    """Region bo'yicha filter va avtomatik region qo'yish."""
+    
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        if hasattr(self.model, 'region'):
+            return qs.filter(region=request.user.region)
+        return qs.none()  # region bo'lmagan model oddiy userga ko'rinmaydi
+
+    def save_model(self, request, obj, form, change):
+        if not request.user.is_superuser and hasattr(obj, 'region'):
+            obj.region = request.user.region
+        super().save_model(request, obj, form, change)
+
 class CarMediaInline(admin.TabularInline):
     model = CarMedia
     extra = 0
@@ -48,7 +64,7 @@ class CarInspectionInline(admin.StackedInline):
 
 
 @admin.register(Car)
-class CarAdmin(admin.ModelAdmin):
+class CarAdmin(RegionRestrictedAdmin):
     list_display = ['brand', 'model', 'price', 'color', 'year', 'month']
     list_filter = ['brand', 'model', 'generation', 'fuel_type', 'body_type', 'transmission','color']
     inlines = [

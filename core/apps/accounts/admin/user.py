@@ -7,16 +7,26 @@ from core.apps.accounts.models import User
 class CustomUserAmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        ("Personal info", {"fields": ("full_name", "role")}),
+        ("Personal info", {"fields": ("full_name", "role", 'phone', 'region')}),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
-        ('Permissions', {"fields": ('is_superuser', 'is_active', 'is_staff')})
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "user_permissions",
+                ),
+            },
+        ),
     )
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "password1", "password2"),
+                "fields": ("email", "password1", "password2", 'region', 'role'),
             },
         ),
     )
