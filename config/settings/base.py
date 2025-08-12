@@ -317,4 +317,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'xoliqberdiyevbehruz12@gmail.com'
 EMAIL_HOST_PASSWORD = 'yfhw kmew xrns kviu'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-FRONTEND_URL = f"{env.str('FRONTEND_URL')}reset-password"
+FRONTEND_URL = f"{env.str('FRONTEND_URL')}/reset-password"
