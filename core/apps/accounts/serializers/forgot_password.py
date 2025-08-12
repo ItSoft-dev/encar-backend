@@ -40,7 +40,7 @@ class ResetPasswordSerializer(serializers.Serializer):
 
     def validate(self, data):
         try:
-            uid = force_str(urlsafe_base64_decode(data['uidb64']))
+            uid = urlsafe_base64_decode(data['uidb64']).decode()
             user = User.objects.get(pk=uid)
         except User.DoesNotExist:
             raise serializers.ValidationError("Noto‘g‘ri link")
