@@ -42,7 +42,7 @@ class ResetPasswordSerializer(serializers.Serializer):
         try:
             uid = force_str(urlsafe_base64_decode(data['uidb64']))
             user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        except User.DoesNotExist:
             raise serializers.ValidationError("Noto‘g‘ri link")
 
         if not PasswordResetTokenGenerator().check_token(user, data['token']):
