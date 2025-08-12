@@ -19,7 +19,7 @@ class ForgotPasswordSerializer(serializers.Serializer):
     def save(self):
         email = self.validated_data['email']
         user = User.objects.get(email=email)
-        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+        uidb64 = user.pk
         token = PasswordResetTokenGenerator().make_token(user)
         reset_link = f"{settings.FRONTEND_URL}/{uidb64}/{token}/"
 
@@ -41,9 +41,9 @@ class ResetPasswordSerializer(serializers.Serializer):
     
     def validate(self, data):
         try:
-            uid = force_str(urlsafe_base64_decode(data['uidb64']))
+            uid = data['uidb64']
             user = User.objects.get(pk=uid)
-        except (User.DoesNotExist, ValueError, UnicodeDecodeError, TypeError):
+        except User.DoesNotExist:
             raise serializers.ValidationError("Noto‘g‘ri link")
 
         if not PasswordResetTokenGenerator().check_token(user, data['token']):
