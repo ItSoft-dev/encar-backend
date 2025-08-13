@@ -16,8 +16,7 @@ RUN apt-get update && \
     libproj-dev \
     g++ \
     make \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/
+    && rm -rf /var/lib/apt/lists/*
 
 COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
