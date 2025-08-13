@@ -18,6 +18,8 @@ class LoginApiView(generics.GenericAPIView):
         if serializer.is_valid():
             email = serializer.validated_data.get('email')
             user = get_object_or_404(User, email=email, role='admin')
+            if not user.check_password(serializer.validated_data.get('password')):
+                return Response({"message": "User not found"}, status=200)
             token = RefreshToken.for_user(user)
             return Response(
                 {
