@@ -8,6 +8,7 @@ from core.apps.admin_panel.views import color as color_views
 from core.apps.admin_panel.views import body_type as body_type_views
 from core.apps.admin_panel.views import fuel_type as fuel_type_views
 from core.apps.admin_panel.views import transmission as transmission_views
+from core.apps.admin_panel.views import car as car_views
 
 
 urlpatterns = [
@@ -62,4 +63,13 @@ urlpatterns = [
             path('list/', transmission_views.TransmissionListApiView.as_view()),
         ]
     )),
+    path('car/', include(
+        [
+            path('list/', car_views.AdminCarListApiView.as_view()),
+            path('create/', car_views.AdminCarCreateApiView.as_view()),
+            path('<uuid:id>/delete/', car_views.AdminCarDeleteApiView.as_view()),
+            path('<uuid:id>/', car_views.AdminCarDetailApiView.as_view()),
+            path('<uuid:id>/update/', car_views.AdminCarUpdateApiView.as_view()),
+        ]
+    ))
 ]
