@@ -15,7 +15,6 @@ RUN apt-get update && \
     libproj-dev \
     g++ \
     make \
-    wkhtmltopdf \
     curl && \
     rm -rf /var/lib/apt/lists/*
 
