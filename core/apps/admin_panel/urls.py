@@ -4,6 +4,10 @@ from core.apps.admin_panel.views import user as user_views
 from core.apps.admin_panel.views import brand as brand_views
 from core.apps.admin_panel.views import model as model_views
 from core.apps.admin_panel.views import generation as generation_views
+from core.apps.admin_panel.views import color as color_views
+from core.apps.admin_panel.views import body_type as body_type_views
+from core.apps.admin_panel.views import fuel_type as fuel_type_views
+from core.apps.admin_panel.views import transmission as transmission_views
 
 
 urlpatterns = [
@@ -36,6 +40,26 @@ urlpatterns = [
             path('create/', generation_views.AdminGenerationCreateApiView.as_view()),
             path('<uuid:id>/update/', generation_views.AdminGenerationUpdateApiView.as_view()),
             path('<uuid:id>/delete/', generation_views.AdminGenerationDeleteApiView.as_view()),
+        ]
+    )),
+    path('color/', include(
+        [
+            path('list/', color_views.AdminColorListApiView.as_view()),
+        ]
+    )),
+    path('body_type/', include(
+        [
+            path('list/', body_type_views.BodyTypeListApiView.as_view()),
+        ]
+    )),
+    path('fuel_type/', include(
+        [
+            path('list/', fuel_type_views.FuelTypeListApiView.as_view()),
+        ]
+    )),
+    path('transmission/', include(
+        [
+            path('list/', transmission_views.TransmissionListApiView.as_view()),
         ]
     )),
 ]
