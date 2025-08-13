@@ -30,7 +30,7 @@ class AdminBrandUpdateApiView(generics.UpdateAPIView):
     queryset = Brand.objects.all()
     lookup_field = 'id'
     permission_classes = [AdminPermission]
-    parser_classes = []
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
 
 
 class AdminBrandDeleteApiView(views.APIView):
