@@ -34,6 +34,8 @@ jobs:
           envkey_DOMAIN: ${{ secrets.ENV_DOMAIN }}
           envkey_FRONTEND_URL: ${{ secrets.ENV_FRONTEND_URL }}
           envkey_MANAGER: ${{ secrets.ENV_MANAGER }}
+          envkey_SMTP_PASSWORD: ${{ secrets.ENV_SMTP_PASSWORD }}
+          envkey_SMTP_EMAIL: ${{ secrets.ENV_SMTP_EMAIL }}
           file_name: .env
           fail_on_empty: false
           sort_keys: false
