@@ -9,8 +9,8 @@ from core.apps.cars.models import Car
 
 @receiver(post_save, sender=Car)
 def send_car_to_channel(sender, instance, created, **kwargs):
-    if not created:
-        return
+    # if not created:
+    #     return
 
     caption = (
         f"🚗 Новое объявление:\n\n" 
@@ -39,19 +39,20 @@ def send_car_to_channel(sender, instance, created, **kwargs):
         image_url = instance.car_medias.first().media.url
         full_image_url = f"{env.str("DOMAIN")}{image_url}"
         telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendPhoto"
+        print(full_image_url, '--------------------------------------------------------')
         data = {
             "chat_id": env.str('CHANNEL_USERNAME'),
             "photo": full_image_url,
             "caption": caption,
             "parse_mode": "HTML"
         }
-    else:
-        telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendMessage"
-        data = {
-            "chat_id": env.str('CHANNEL_USERNAME'),
-            "text": caption,
-            "parse_mode": "HTML"
-        }
+    # else:
+    #     telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendMessage"
+    #     data = {
+    #         "chat_id": env.str('CHANNEL_USERNAME'),
+    #         "text": caption,
+    #         "parse_mode": "HTML"
+    #     }
 
     try:
         res = requests.post(telegram_url, data=data, timeout=5)
