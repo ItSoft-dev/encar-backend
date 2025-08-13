@@ -29,6 +29,7 @@ urlpatterns = [
             path('auth/', include('core.apps.accounts.urls')),
             path('cars/', include('core.apps.cars.urls')),
             path('common/', include('core.apps.common.urls')),
+            path('admin/', include('core.apps.admin_panel.urls')),
         ]
     )),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
@@ -38,3 +39,4 @@ urlpatterns = [
 # Media and Static Files
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]

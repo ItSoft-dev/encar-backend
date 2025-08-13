@@ -23,6 +23,7 @@ APPS = [
     'core.apps.shared',
     'core.apps.cars',
     'core.apps.common',
+    'core.apps.admin_panel',
 ]
 
 PACKAGES = [
@@ -33,6 +34,7 @@ PACKAGES = [
     'django_filters',
     'ckeditor',
     'ckeditor_uploader',
+    'silk',
 ]
 
 DJANGO_APPS = [
@@ -60,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -148,7 +151,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # from config.conf import *
 
@@ -215,8 +218,7 @@ CACHEOPS = {
     }
 }
 CACHEOPS_DEGRADE_ON_FAILURE = True
-CACHEOPS_ENABLED = False
-CACHEOPS_LOGGING = True
+CACHEOPS_ENABLED = True
 
 JAZZMIN_SETTINGS = {
     "site_title": "EnCar Admin",
@@ -286,7 +288,7 @@ SWAGGER_SETTINGS = {
             'in': 'header'
       }
    },
-   "USE_SESSION_AUTH": False
+   "USE_SESSION_AUTH": True
 }
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -314,7 +316,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'xoliqberdiyevbehruz12@gmail.com'
-EMAIL_HOST_PASSWORD = 'yfhw kmew xrns kviu'
+EMAIL_HOST_USER = env.str("SMTP_EMAIL")
+EMAIL_HOST_PASSWORD = env.str("SMTP_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 FRONTEND_URL = f"{env.str('FRONTEND_URL')}/reset-password"
