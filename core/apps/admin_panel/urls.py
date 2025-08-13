@@ -11,7 +11,7 @@ from core.apps.admin_panel.views import transmission as transmission_views
 from core.apps.admin_panel.views import car as car_views
 from core.apps.admin_panel.views import car_media as car_media_views
 from core.apps.admin_panel.views import car_interyer as car_interyer_views
-
+from core.apps.admin_panel.views import car_seat as car_seat_views
 
 urlpatterns = [
     path('user/', include(
@@ -88,6 +88,14 @@ urlpatterns = [
             path('<uuid:id>/delete/', car_interyer_views.CarInteryerDeleteApiView.as_view()),
             path('<uuid:id>/update/', car_interyer_views.CarInteryerUpdateApiView.as_view()),
             path('create/', car_interyer_views.CarInteryerCreateApiView.as_view()),
+        ]
+    )),
+    path('car_seats/', include(
+        [
+            path('create/', car_seat_views.CarSeatCreateApiView.as_view()),
+            path('<uuid:car_id>/list/', car_seat_views.CarSeatListApiView.as_view()),
+            path('<uuid:id>/delete/', car_seat_views.CarSeatDeleteApiView.as_view()),
+            path('<uuid:id>/update/', car_seat_views.CarSeatUpdateApiView.as_view()),
         ]
     )),
     
