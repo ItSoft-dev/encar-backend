@@ -89,5 +89,6 @@ urlpatterns = [
             path('<uuid:id>/update/', car_interyer_views.CarInteryerUpdateApiView.as_view()),
             path('create/', car_interyer_views.CarInteryerCreateApiView.as_view()),
         ]
-    ))
+    )),
+    
 ]

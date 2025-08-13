@@ -27,7 +27,7 @@ class AdminCarListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = [
-            'name', 'brand', 'price', 'body_type', 'fuel_type', 'color', 'transmission', 'year'
+            'id', 'name', 'brand', 'price', 'body_type', 'fuel_type', 'color', 'transmission', 'year'
         ]
 
     def get_brand(self, obj):
