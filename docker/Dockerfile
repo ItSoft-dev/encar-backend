@@ -8,20 +8,20 @@ WORKDIR /app
 COPY requirements.txt /app/
 
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
     gdal-bin \
     libgdal-dev \
-    python3-gdal \
     libgeos-dev \
     libproj-dev \
     g++ \
     make \
-    wkhtmltopdf && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/
+    wkhtmltopdf \
+    curl && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
-RUN pip install --no-cache-dir -r requirements.txt
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8659
