@@ -8,12 +8,19 @@ class AdminCarCreateSerializer(serializers.ModelSerializer):
         model = Car
         fields = [
             'name', 'brand', 'model', 'generation', 'body_type', 'fuel_type', 'color', 'transmission',
-            'price', 'year', 'month', 'engine_capacity', 'miliage',
+            'price', 'year', 'month', 'engine_capacity', 'miliage'
         ]
     
     def create(self, validated_data):
         region = self.context.get('region')
         return Car.objects.create(region=region, **validated_data)
+
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'name': instance.name,
+            'price': instance.price
+        }
 
 
 class AdminCarListSerializer(serializers.ModelSerializer):

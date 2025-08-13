@@ -26,7 +26,7 @@ class AdminCarMediaListApiView(views.APIView):
     
 
 class AdminCarMediaUpdateApiView(generics.UpdateAPIView):
-    serializer_classr = serializers.AdminCarMediaUpdateSerializer
+    serializer_class = serializers.AdminCarMediaUpdateSerializer
     queryset = CarMedia.objects.all()
     lookup_field = 'id'
     permission_classes = [AdminPermission]

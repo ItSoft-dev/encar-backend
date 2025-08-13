@@ -15,7 +15,7 @@ class CarSeatCreateApiView(generics.CreateAPIView):
 
 
 class CarSeatListApiView(views.APIView):
-    parser_classes = [AdminPermission]
+    permission_classes = [AdminPermission]
 
     def get(self, request, car_id):
         car = get_object_or_404(Car, id=car_id)

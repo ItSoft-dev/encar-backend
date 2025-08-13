@@ -1,4 +1,4 @@
-from rest_framework import generics, views
+from rest_framework import generics, views, parsers
 from rest_framework.response import Response
 
 from core.apps.admin_panel.serializers import car as serializers
@@ -15,13 +15,14 @@ class AdminCarListApiView(generics.ListAPIView):
     def get_queryset(self):
         return Car.objects.filter(region=self.request.user.region).select_related(
         'color', 'brand', 'body_type', 'fuel_type', 'transmission'
-    ).prefetch_related('car_medias')
+    )
 
 
 class AdminCarCreateApiView(generics.CreateAPIView):
     serializer_class = serializers.AdminCarCreateSerializer
     queryset = Car.objects.all()
     permission_classes = [AdminPermission]
+    parser_classes = [parsers.FormParser, parsers.MultiPartParser]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
