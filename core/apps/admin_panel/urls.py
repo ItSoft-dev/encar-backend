@@ -12,6 +12,8 @@ from core.apps.admin_panel.views import car as car_views
 from core.apps.admin_panel.views import car_media as car_media_views
 from core.apps.admin_panel.views import car_interyer as car_interyer_views
 from core.apps.admin_panel.views import car_seat as car_seat_views
+from core.apps.admin_panel.views import car_safety as car_safety_views
+
 
 urlpatterns = [
     path('user/', include(
@@ -98,5 +100,12 @@ urlpatterns = [
             path('<uuid:id>/update/', car_seat_views.CarSeatUpdateApiView.as_view()),
         ]
     )),
-    
+    path('car_safety/', include(
+        [
+            path('create/', car_safety_views.AdminCarSafetyCreateApiView.as_view()),
+            path('<uuid:car_id>/list/', car_safety_views.AdminCarSafetyApiView.as_view()),
+            path('<uuid:id>/delete/', car_safety_views.AdminCarSafetyDeleteApiView.as_view()),
+            path('<uuid:id>/update/', car_safety_views.AdminCarSafetyUpdateApiView.as_view()),
+        ]
+    )),
 ]
