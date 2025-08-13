@@ -32,25 +32,25 @@ class AdminCarListSerializer(serializers.ModelSerializer):
 
     def get_brand(self, obj):
         return {
-            'id': obj.brand.id, 'name': obj.brand.name
+            'id': str(obj.brand.id), 'name': obj.brand.name
         }
 
     def get_body_type(self, obj):
-        return {'id': obj.body_type.id, 'name': obj.body_type.name}
+        return {'id': str(obj.body_type.id), 'name': obj.body_type.name}
     
     def get_fuel_type(self, obj):
-        return {'id': obj.fuel_type.id, 'name': obj.fuel_type.name}
+        return {'id': str(obj.fuel_type.id), 'name': obj.fuel_type.name}
     
     def get_color(self, obj):
-        return {'id': obj.color.id, 'name': obj.color.name}
+        return {'id': str(obj.color.id), 'name': obj.color.name}
     
     def get_transmission(self, obj):
-        return {'id': obj.transmission.id, 'name': obj.transmission.name}
+        return {'id': str(obj.transmission.id), 'name': obj.transmission.name}
         
     def get_image(self, obj):
         media = obj.car_medias.first()
         return {
-            'id': media.id, 'media': media.media
+            'id': str(media.id), 'media': media.media
         } if media else None
     
 
@@ -73,24 +73,24 @@ class AdminCarDetailSerializer(serializers.ModelSerializer):
 
     def get_brand(self, obj):
         return {
-            'id': obj.brand.id, 'name': obj.brand.name
+            'id': str(obj.brand.id), 'name': obj.brand.name
         }
 
     def get_body_type(self, obj):
-        return {'id': obj.body_type.id, 'name': obj.body_type.name}
+        return {'id': str(obj.body_type.id), 'name': obj.body_type.name}
     
     def get_fuel_type(self, obj):
-        return {'id': obj.fuel_type.id, 'name': obj.fuel_type.name}
+        return {'id': str(obj.fuel_type.id), 'name': obj.fuel_type.name}
     
     def get_color(self, obj):
-        return {'id': obj.color.id, 'name': obj.color.name}
+        return {'id': str(obj.color.id), 'name': obj.color.name}
     
     def get_transmission(self, obj):
-        return {'id': obj.transmission.id, 'name': obj.transmission.name}
+        return {'id': str(obj.transmission.id), 'name': obj.transmission.name}
         
     def get_model(self, obj):
-        return {'id': obj.model.id, 'name': obj.model.name}
+        return {'id': str(obj.model.id), 'name': obj.model.name}
     
     def get_generation(self, obj):
-        return {'id': obj.generation.id, 'name': obj.generation.name}
+        return {'id': str(obj.generation.id), 'name': obj.generation.name}
     
