@@ -9,6 +9,8 @@ from core.apps.admin_panel.views import body_type as body_type_views
 from core.apps.admin_panel.views import fuel_type as fuel_type_views
 from core.apps.admin_panel.views import transmission as transmission_views
 from core.apps.admin_panel.views import car as car_views
+from core.apps.admin_panel.views import car_media as car_media_views
+from core.apps.admin_panel.views import car_interyer as car_interyer_views
 
 
 urlpatterns = [
@@ -70,6 +72,22 @@ urlpatterns = [
             path('<uuid:id>/delete/', car_views.AdminCarDeleteApiView.as_view()),
             path('<uuid:id>/', car_views.AdminCarDetailApiView.as_view()),
             path('<uuid:id>/update/', car_views.AdminCarUpdateApiView.as_view()),
+        ]
+    )),
+    path('car_media/', include(
+        [
+            path('<uuid:car_id>/list/', car_media_views.AdminCarMediaListApiView.as_view()),
+            path('create/', car_media_views.AdminCarMediaCreateApiView.as_view()),
+            path('<uuid:id>/delete/', car_media_views.AdminCarMediaDeleteApiView.as_view()),
+            path('<uuid:id>/update/', car_media_views.AdminCarMediaUpdateApiView.as_view()),
+        ]
+    )),
+    path('car_interyer/', include(
+        [
+            path('<uuid:car_id>/list/', car_interyer_views.CarInteryerApiView.as_view()),
+            path('<uuid:id>/delete/', car_interyer_views.CarInteryerDeleteApiView.as_view()),
+            path('<uuid:id>/update/', car_interyer_views.CarInteryerUpdateApiView.as_view()),
+            path('create/', car_interyer_views.CarInteryerCreateApiView.as_view()),
         ]
     ))
 ]
