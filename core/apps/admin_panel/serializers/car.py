@@ -22,12 +22,12 @@ class AdminCarListSerializer(serializers.ModelSerializer):
     fuel_type = serializers.SerializerMethodField()
     color = serializers.SerializerMethodField()
     transmission = serializers.SerializerMethodField()
-    image = serializers.SerializerMethodField(method_name='get_image')
+    # image = serializers.SerializerMethodField(method_name='get_image')
 
     class Meta:
         model = Car
         fields = [
-            'name', 'brand', 'price', 'body_type', 'fuel_type', 'color', 'transmission', 'image'
+            'name', 'brand', 'price', 'body_type', 'fuel_type', 'color', 'transmission'
         ]
 
     def get_brand(self, obj):
@@ -47,11 +47,11 @@ class AdminCarListSerializer(serializers.ModelSerializer):
     def get_transmission(self, obj):
         return {'id': str(obj.transmission.id), 'name': obj.transmission.name}
         
-    def get_image(self, obj):
-        media = obj.car_medias.first()
-        return {
-            'id': str(media.id), 'media': media.media.url
-        } if media else None
+    # def get_image(self, obj):
+    #     media = obj.car_medias.first()
+    #     return {
+    #         'id': str(media.id), 'media': media.media.url
+    #     } if media else None
     
 
 
