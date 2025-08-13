@@ -50,7 +50,7 @@ class AdminCarListSerializer(serializers.ModelSerializer):
     def get_image(self, obj):
         media = obj.car_medias.first()
         return {
-            'id': str(media.id), 'media': media.media
+            'id': str(media.id), 'media': media.media.url
         } if media else None
     
 
