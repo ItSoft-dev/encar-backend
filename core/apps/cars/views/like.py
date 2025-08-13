@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, views
 from rest_framework.response import Response
 
 from core.apps.cars.models import Like, Comparison, Car
@@ -8,8 +8,7 @@ from core.apps.cars.serializers.car import CarListSerializer
 from core.apps.shared.pagination.custom import CustomPageNumberPagination
 
 
-class LikeApiView(generics.GenericAPIView):
-    queryset = Like.objects.all()
+class LikeApiView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, car_id):
@@ -41,8 +40,7 @@ class LikedCarListApiView(generics.ListAPIView):
         context['user'] = self.request.user
         return context
 
-class ComparisonApiView(generics.GenericAPIView):
-    queryset = Comparison.objects.all()
+class ComparisonApiView(views.APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, car_id):

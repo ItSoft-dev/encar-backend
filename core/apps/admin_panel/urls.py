@@ -13,6 +13,8 @@ from core.apps.admin_panel.views import car_media as car_media_views
 from core.apps.admin_panel.views import car_interyer as car_interyer_views
 from core.apps.admin_panel.views import car_seat as car_seat_views
 from core.apps.admin_panel.views import car_safety as car_safety_views
+from core.apps.admin_panel.views import car_multimedia as car_multimedia_views
+from core.apps.admin_panel.views import car_pricing as car_pricing_views
 
 
 urlpatterns = [
@@ -108,4 +110,20 @@ urlpatterns = [
             path('<uuid:id>/update/', car_safety_views.AdminCarSafetyUpdateApiView.as_view()),
         ]
     )),
+    path('car_multimedia/', include(
+        [
+            path('create/', car_multimedia_views.AdminCarMultimediaCreateApiView.as_view()),
+            path('<uuid:car_id>/list/', car_multimedia_views.AdminCarMultimediaApiView.as_view()),
+            path('<uuid:id>/delete/', car_multimedia_views.AdminCarMultimediaDeleteApiView.as_view()),
+            path('<uuid:id>/update/', car_multimedia_views.AdminCarMultimediaUpdateApiView.as_view()),
+        ]
+    )),
+    path('car_pricing/', include(
+        [
+            path('create/', car_pricing_views.AdminCarPricingCreateApiView.as_view()),
+            path('<uuid:car_id>/list/', car_pricing_views.AdminCarPricingApiView.as_view()),
+            path('<uuid:id>/delete/', car_pricing_views.AdminCarPricingDeleteApiView.as_view()),
+            path('<uuid:id>/update/', car_pricing_views.AdminCarPricingUpdateApiView.as_view()),
+        ]
+    ))
 ]
