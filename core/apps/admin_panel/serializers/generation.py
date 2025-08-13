@@ -7,3 +7,9 @@ class AdminGenerationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Generation
         fields = ['id', 'name']
+
+
+class AdminGenerationCreateUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Generation
+        fields = ['name', 'model']
