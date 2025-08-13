@@ -30,7 +30,7 @@ class AdminGenerationCreateApiView(generics.CreateAPIView):
     permission_classes = [AdminPermission]
 
 
-class AdminGenerationUpdateApiView(generics.CreateAPIView):
+class AdminGenerationUpdateApiView(generics.UpdateAPIView):
     serializer_class = serializers.AdminGenerationCreateUpdateSerializer
     queryset = Generation.objects.all()
     permission_classes = [AdminPermission]
