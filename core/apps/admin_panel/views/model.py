@@ -13,7 +13,7 @@ class AdminModelByBrandListApiView(views.APIView):
 
     def get(self, request, brand_id):
         brand = get_object_or_404(Brand, id=brand_id)
-        models = Model.objects.filter(brand__id=brand)
+        models = Model.objects.filter(brand=brand)
         serializer = serializers.AdminModelSerializer(models, many=True)
         return Response(serializer.data, status=200)
     
