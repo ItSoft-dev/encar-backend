@@ -26,3 +26,23 @@ class AdminModelListApiView(views.APIView):
         serializer = serializers.AdminModelSerializer(models, many=True)
         return Response(serializer.data, status=200)
     
+
+class AdminModelCreateApiView(generics.CreateAPIView):
+    serializer_class = serializers.AdminModelCreateSerializer
+    queryset = Model.objects.all()
+    permission_classes = [AdminPermission]
+
+
+class AdminModelUpdateApiView(generics.UpdateAPIView):
+    serializer_class = serializers.AdminModelCreateSerializer
+    queryset = Model.objects.all()
+    lookup_field = 'id'
+    permission_classes = [AdminPermission]
+    
+
+class AdminModelDeleteApiView(generics.DestroyAPIView):
+    queryset = Model.objects.all()
+    serializer_class = None
+    lookup_field = 'id'
+    permission_classes = [AdminPermission]
+    
