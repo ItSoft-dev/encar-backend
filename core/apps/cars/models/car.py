@@ -53,7 +53,7 @@ class CarMedia(BaseModel):
         verbose_name_plural = 'изображения автомобилей'
 
 
-class CarInteryer(models.Model):
+class CarInteryer(BaseModel):
     side_airbag = models.BooleanField(default=False, verbose_name="Боковая подушка безопасности")
     curtain_airbag = models.BooleanField(default=False, verbose_name="Шторка безопасности")
     abs = models.BooleanField(default=False, verbose_name="Система антиблокировки тормозов (ABS)")
@@ -92,7 +92,7 @@ class CarSafety(BaseModel):
         verbose_name_plural = 'Безопасность'
 
 
-class CarMultimedia(models.Model):
+class CarMultimedia(BaseModel):
     cruise_control = models.BooleanField(
         default=False, verbose_name='Круиз-контроль (обычный/адаптивный)'
     ) 
@@ -186,7 +186,7 @@ class CarPricing(BaseModel):
         verbose_name_plural = 'расчет цены'
 
 
-class CarInspection(models.Model):
+class CarInspection(BaseModel):
     car = models.OneToOneField(Car, on_delete=models.CASCADE, related_name="car_inspections")
     inspection_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата инспекции')
     diagnosis_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата диагностики')
@@ -210,7 +210,7 @@ class CarInspection(models.Model):
         verbose_name_plural = 'Проверка авто'
 
 
-class CarInspectionIncident(models.Model):
+class CarInspectionIncident(BaseModel):
     inspection = models.ForeignKey(CarInspection, on_delete=models.CASCADE, related_name="car_incidents")
     name = models.CharField(max_length=255)  
     value = models.CharField(max_length=255)
@@ -220,7 +220,7 @@ class CarInspectionIncident(models.Model):
         verbose_name_plural = "Страховые случаи"
 
 
-class InspectionSection(models.Model):
+class InspectionSection(BaseModel):
     inspection = models.ForeignKey(CarInspection, on_delete=models.CASCADE, related_name="sections")
     title = models.CharField(max_length=255)
 
@@ -232,7 +232,7 @@ class InspectionSection(models.Model):
         verbose_name_plural = 'Внутренняя инспекция'
 
 
-class InspectionField(models.Model):
+class InspectionField(BaseModel):
     section = models.ForeignKey(InspectionSection, on_delete=models.CASCADE, related_name="fields")
     name = models.CharField(max_length=255)  
     status = models.CharField(max_length=255)
