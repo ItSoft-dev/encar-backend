@@ -46,13 +46,13 @@ def send_car_to_channel(sender, instance, created, **kwargs):
             "caption": caption,
             "parse_mode": "HTML"
         }
-    # else:
-    #     telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendMessage"
-    #     data = {
-    #         "chat_id": env.str('CHANNEL_USERNAME'),
-    #         "text": caption,
-    #         "parse_mode": "HTML"
-    #     }
+    else:
+        telegram_url = f"https://api.telegram.org/bot{env.str('BOT_TOKEN')}/sendMessage"
+        data = {
+            "chat_id": env.str('CHANNEL_USERNAME'),
+            "text": caption,
+            "parse_mode": "HTML"
+        }
 
     try:
         res = requests.post(telegram_url, data=data, timeout=5)
