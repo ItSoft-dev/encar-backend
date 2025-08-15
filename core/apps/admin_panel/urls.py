@@ -15,6 +15,10 @@ from core.apps.admin_panel.views import car_seat as car_seat_views
 from core.apps.admin_panel.views import car_safety as car_safety_views
 from core.apps.admin_panel.views import car_multimedia as car_multimedia_views
 from core.apps.admin_panel.views import car_pricing as car_pricing_views
+from core.apps.admin_panel.views import car_inspection as car_inspection_views
+from core.apps.admin_panel.views import car_inspection_incident as inspection_incident_views
+from core.apps.admin_panel.views import inspection_section as inspection_section_views
+from core.apps.admin_panel.views import inspection_field as inspection_field_views
 
 
 urlpatterns = [
@@ -125,5 +129,46 @@ urlpatterns = [
             path('<uuid:id>/delete/', car_pricing_views.AdminCarPricingDeleteApiView.as_view()),
             path('<uuid:id>/update/', car_pricing_views.AdminCarPricingUpdateApiView.as_view()),
         ]
-    ))
+    )),
+    path('car_inspection/', include(
+        [
+            path('create/', car_inspection_views.AdminCarInpspectionCreateApiView.as_view()),
+            path('<uuid:car_id>/list/', car_inspection_views.AdminCarInspectionListByCarIdApiView.as_view()),
+            path('<uuid:id>/delete/', car_inspection_views.AdminCarInspectionDeleteApiView.as_view()),
+            path('<uuid:id>/update/', car_inspection_views.AdminCarInspectionUpdateApiView.as_view()),
+        ]
+    )),
+    path('car_inspection_incident/', include(
+        [
+            path('create/', inspection_incident_views.AdminCarInspectionIncidentCreateApiView.as_view()),
+            path(
+                route='<uuid:car_inspection_id>/list/',
+                view=inspection_incident_views.AdminCarInspectionListByCarInspectionIdApiView.as_view()
+            ),
+            path(
+                route='<uuid:id>/delete/',
+                view=inspection_incident_views.AdminCarInspectionIncidentDeleteApiView.as_view()
+                ),
+            path(
+                route='<uuid:id>/update/',
+                view=inspection_incident_views.AdminCarInspectionIncidentUpdateApiView.as_view()
+            ),
+        ]
+    )),
+    path('inspection_section/', include(
+        [
+            path('create/', inspection_section_views.AdminInspectionSectionCreateApiView.as_view()),
+            path('<uuid:car_inspection_id>/list/', inspection_section_views.AdminInspectionSectionListApiView.as_view()),
+            path('<uuid:id>/delete/', inspection_section_views.AdminInspectionSectionDeleteApiView.as_view()),
+            path('<uuid:id>/update/', inspection_section_views.AdminInspectionSectionUpdateApiView.as_view()),
+        ]
+    )),
+    path('inspection_field/', include(
+        [
+            path('create/', inspection_field_views.AdminInspectionFieldCreateApiView.as_view()),
+            path('<uuid:inspection_section_id>/list/', inspection_field_views.AdminInspectionFieldListApiView.as_view()),
+            path('<uuid:id>/delete/', inspection_field_views.AdminInspectionFieldDeleteApiView.as_view()),
+            path('<uuid:id>/update/', inspection_field_views.AdminInspectionFieldUpdateApiView.as_view()),
+        ]
+    )),
 ]
