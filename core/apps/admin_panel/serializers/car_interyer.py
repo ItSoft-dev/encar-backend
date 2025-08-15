@@ -16,6 +16,6 @@ class AdminCarInterterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarInteryer
         fields = [
-            'side_airbag', 'curtain_airbag', 'abs', 'traction_control', 
+            'id', 'side_airbag', 'curtain_airbag', 'abs', 'traction_control', 
             'esc', 'tpms', 'ldws', 'rear_view_camera',
         ]
