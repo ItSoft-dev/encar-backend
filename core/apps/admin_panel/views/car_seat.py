@@ -34,4 +34,5 @@ class CarSeatDeleteApiView(generics.DestroyAPIView):
 class CarSeatUpdateApiView(generics.UpdateAPIView):
     serializer_class = serializers.CarSeatSerializer
     queryset = CarSeats.objects.all()
-    permission_classes = [AdminPermission]
+    permission_classes = [AdminPermission] 
+    lookup_field = 'id'

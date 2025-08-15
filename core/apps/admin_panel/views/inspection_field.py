@@ -19,7 +19,7 @@ class AdminInspectionFieldListApiView(views.APIView):
 
     def get(self, request, inspection_section_id):
         inspection_section = get_object_or_404(InspectionSection, id=inspection_section_id)
-        inspection_fields = InspectionField.objects.filter(section=inspection_fields)
+        inspection_fields = InspectionField.objects.filter(section=inspection_section)
         serializer = serializers.AdminInspectionFieldSerializer(inspection_fields, many=True)
         return Response(serializer.data, status=200)
     
