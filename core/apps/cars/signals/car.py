@@ -9,8 +9,8 @@ from core.apps.cars.models import Car
 
 @receiver(post_save, sender=Car)
 def send_car_to_channel(sender, instance, created, **kwargs):
-    # if not created:
-    #     return
+    if not created:
+        return
 
     caption = (
         f"🚗 Новое объявление:\n\n" 
