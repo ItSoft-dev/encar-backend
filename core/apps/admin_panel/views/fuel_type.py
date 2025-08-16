@@ -11,4 +11,23 @@ class FuelTypeListApiView(generics.ListAPIView):
     queryset = FuelType.objects.all()
     permission_classes = [AdminPermission]
 
-    
+
+class FuelTypeCreateApiView(generics.CreateAPIView):
+    serializer_class = serializers.AdminFuelTypeSerializer
+    queryset = FuelType.objects.all()
+    permission_classes = [AdminPermission]
+
+
+class FuelTypeUpdateApiView(generics.UpdateAPIView):
+    serializer_class = serializers.AdminFuelTypeSerializer
+    queryset = FuelType.objects.all()
+    permission_classes = [AdminPermission]
+    lookup_field = 'id'
+
+
+
+class FuelTypeDeleteApiView(generics.DestroyAPIView):
+    serializer_class = serializers.AdminFuelTypeSerializer
+    queryset = FuelType.objects.all()
+    permission_classes = [AdminPermission]
+    lookup_field = 'id'

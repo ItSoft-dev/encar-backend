@@ -9,3 +9,25 @@ class AdminColorListApiView(generics.ListAPIView):
     queryset = Color.objects.all()
     serializer_class = serializers.AdminColorListSerializer
     permission_classes = [AdminPermission]
+
+
+class AdminColorCreateApiView(generics.CreateAPIView):
+    queryset = Color.objects.all()
+    serializer_class = serializers.AdminColorListSerializer
+    permission_classes = [AdminPermission]
+
+
+class AdminColorUpdateApiView(generics.UpdateAPIView):
+    serializer_class = serializers.AdminColorListSerializer
+    queryset = Color.objects.all()
+    permission_classes = [AdminPermission]
+    lookup_field = 'id'
+
+
+class AdminColorDeleteApiView(generics.DestroyAPIView):
+    serializer_class = serializers.AdminColorListSerializer
+    queryset = Color.objects.all()
+    lookup_field = 'id'
+    permission_classes = [AdminPermission]
+
+

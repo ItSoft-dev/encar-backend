@@ -11,4 +11,24 @@ class TransmissionListApiView(generics.ListAPIView):
     queryset = Transmission.objects.all()
     permission_classes = [AdminPermission]
 
+
+class TransmissionCreateApiView(generics.CreateAPIView):
+    serializer_class = serializers.AdminTransmissionListSerializer
+    queryset = Transmission.objects.all()
+    permission_classes = [AdminPermission]
+
+
+class TransmissionUpdateApiView(generics.UpdateAPIView):
+    serializer_class = serializers.AdminTransmissionListSerializer
+    queryset = Transmission.objects.all()
+    permission_classes = [AdminPermission]
+    lookup_field = 'id'
+
+
+class TransmissionDeleteApiView(generics.DestroyAPIView):
+    serializer_class = serializers.AdminTransmissionListSerializer
+    queryset = Transmission.objects.all()
+    permission_classes = [AdminPermission]
+    lookup_field = 'id'
+
     

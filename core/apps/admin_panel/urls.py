@@ -56,21 +56,33 @@ urlpatterns = [
     path('color/', include(
         [
             path('list/', color_views.AdminColorListApiView.as_view()),
+            path('create/', color_views.AdminColorCreateApiView.as_view()),
+            path('<uuid:id>/update/', color_views.AdminColorUpdateApiView.as_view()),
+            path('<uuid:id>/delete/', color_views.AdminColorDeleteApiView.as_view()),
         ]
     )),
     path('body_type/', include(
         [
             path('list/', body_type_views.BodyTypeListApiView.as_view()),
+            path('create/', body_type_views.BodyTypeCreateApiView.as_view()),
+            path('<uuid:id>/delete/', body_type_views.BodyTypeDeleteApiView.as_view()),
+            path('<uuid:id>/update/', body_type_views.BodyTypeUpdateApiView.as_view()),
         ]
     )),
     path('fuel_type/', include(
         [
             path('list/', fuel_type_views.FuelTypeListApiView.as_view()),
+            path('create/', fuel_type_views.FuelTypeCreateApiView.as_view()),
+            path('<uuid:id>/update/', fuel_type_views.FuelTypeUpdateApiView.as_view()),
+            path('<uuid:id>/delete/', fuel_type_views.FuelTypeDeleteApiView.as_view()),
         ]
     )),
     path('transmission/', include(
         [
             path('list/', transmission_views.TransmissionListApiView.as_view()),
+            path('create/', transmission_views.TransmissionCreateApiView.as_view()),
+            path('<uuid:id>/update/', transmission_views.TransmissionUpdateApiView.as_view()),
+            path('<uuid:id>/delete/', transmission_views.TransmissionDeleteApiView.as_view()),
         ]
     )),
     path('car/', include(

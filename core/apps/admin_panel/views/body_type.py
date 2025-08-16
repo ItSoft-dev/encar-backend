@@ -11,4 +11,22 @@ class BodyTypeListApiView(generics.ListAPIView):
     queryset = BodyType.objects.all()
     permission_classes = [AdminPermission]
 
-    
+
+class BodyTypeCreateApiView(generics.CreateAPIView):
+    serializer_class = serializers.AdminBodyTypeListSerializer
+    queryset = BodyType.objects.all()
+    permission_classes = [AdminPermission]
+
+
+class BodyTypeUpdateApiView(generics.UpdateAPIView):
+    serializer_class = serializers.AdminBodyTypeListSerializer
+    queryset = BodyType.objects.all()
+    permission_classes = [AdminPermission]
+    lookup_field = 'id'
+
+
+class BodyTypeDeleteApiView(generics.DestroyAPIView):
+    serializer_class = serializers.AdminBodyTypeListSerializer
+    queryset = BodyType.objects.all()
+    permission_classes = [AdminPermission]
+    lookup_field = 'id'
