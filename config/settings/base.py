@@ -219,16 +219,16 @@ CACHEOPS_DEGRADE_ON_FAILURE = True
 CACHEOPS_ENABLED = True
 
 JAZZMIN_SETTINGS = {
-    "site_title": "EnCar Admin",
-    "site_header": "EnCar",
-    "site_brand": "EnCar",
+    "site_title": "GMCar Admin",
+    "site_header": "GMCar",
+    "site_brand": "GMCar",
     "site_logo": None,
     "login_logo": None,
     "login_logo_dark": None,
     "site_logo_classes": "img-circle",
     "site_icon": None,
-    "welcome_sign": "Welcome to the EnCar",
-    "copyright": "Acme EnCar Ltd",
+    "welcome_sign": "Welcome to the GMCar",
+    "copyright": "Acme GMCar Ltd",
 
     "search_model": ["auth.User"],
     "user_avatar": None,
@@ -291,7 +291,7 @@ SWAGGER_SETTINGS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    'https://encar-test.vercel.app'
+    'https://c-test.vercel.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
