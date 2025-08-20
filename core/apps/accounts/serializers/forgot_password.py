@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from rest_framework import serializers
 
 from core.apps.accounts.models import User
+from core.apps.shared.models import SiteConfig
 
 class ForgotPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -22,13 +23,15 @@ class ForgotPasswordSerializer(serializers.Serializer):
         uidb64 = user.pk
         token = PasswordResetTokenGenerator().make_token(user)
         reset_link = f"{settings.FRONTEND_URL}/{uidb64}/{token}/"
-
+        config = SiteConfig.objects.first()
         send_mail(
             "Parolni tiklash",
             f"Parolingizni tiklash uchun ushbu linkga o'ting:\n{reset_link}",
-            settings.DEFAULT_FROM_EMAIL,
+            config.email_host,
             [email],
             fail_silently=False,
+            auth_user=config.email_host,
+            auth_password=config.email_host_password,
         )
         return reset_link
 
