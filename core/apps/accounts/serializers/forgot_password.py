@@ -25,8 +25,8 @@ class ForgotPasswordSerializer(serializers.Serializer):
         reset_link = f"{settings.FRONTEND_URL}/{uidb64}/{token}/"
         config = SiteConfig.objects.first()
         send_mail(
-            "Parolni tiklash",
-            f"Parolingizni tiklash uchun ushbu linkga o'ting:\n{reset_link}",
+            "Сброс пароля",
+            f"Чтобы сбросить пароль, перейдите по этой ссылке:\n{reset_link}",
             config.email_host,
             [email],
             fail_silently=False,
