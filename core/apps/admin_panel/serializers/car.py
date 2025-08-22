@@ -8,7 +8,7 @@ class AdminCarCreateSerializer(serializers.ModelSerializer):
         model = Car
         fields = [
             'name', 'brand', 'model', 'generation', 'body_type', 'fuel_type', 'color', 'transmission',
-            'price', 'year', 'month', 'engine_capacity', 'miliage'
+            'price', 'year', 'month', 'engine_capacity', 'miliage', 'main_image'
         ]
     
     def create(self, validated_data):
@@ -33,7 +33,7 @@ class AdminCarListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = [
-            'id', 'name', 'brand', 'price', 'body_type', 'fuel_type', 'color', 'transmission', 'year'
+            'id', 'name', 'brand', 'price', 'body_type', 'fuel_type', 'color', 'transmission', 'year', 'main_image'
         ]
 
     def get_brand(self, obj):
@@ -67,7 +67,7 @@ class AdminCarDetailSerializer(serializers.ModelSerializer):
         model = Car
         fields = [
             'name', 'brand', 'price', 'body_type', 'fuel_type', 'color', 'transmission',
-            'model', 'generation', 'year', 'month', 'engine_capacity', 'miliage', 'is_sold'
+            'model', 'generation', 'year', 'month', 'engine_capacity', 'miliage', 'is_sold', 'main_image'
         ]
 
     def get_brand(self, obj):

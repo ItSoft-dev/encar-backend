@@ -24,7 +24,7 @@ class CarListSerializer(serializers.ModelSerializer):
         model = Car
         fields = [
             'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'like',
-            'comparison', 'car_medias'
+            'comparison', 'main_image', 'car_medias'
         ]
 
     def get_like(self, obj):
@@ -124,7 +124,7 @@ class CarDeatilSerializer(serializers.ModelSerializer):
     class Meta:
         model = Car
         fields = [
-            'id', 'name', 'fuel_type', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
+            'id', 'name', 'fuel_type', 'main_image', 'color','price', 'year', 'miliage', 'updated_at', 'car_medias', 'month','engine_capacity', 'transmission', 'body_type',
             'car_interyer', 'car_multimedia', 'car_safety', 'car_seats', 'car_pricing',
             'car_inspections', 'like', 'comparison',
         ]

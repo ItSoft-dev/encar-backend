@@ -11,8 +11,8 @@ from core.apps.shared.site_config import get_email_config
 
 @receiver(post_save, sender=Car)
 def send_car_to_channel(sender, instance, created, **kwargs):
-    if not created:
-        return
+    # if not created:
+    #     return
     config = get_email_config()
     caption = (
         f"🚗 Новое объявление:\n\n" 
@@ -36,9 +36,8 @@ def send_car_to_channel(sender, instance, created, **kwargs):
         f"❓ Запросить дополнительную информацию по автомобилю можно у нашего менеджера "
         f"<a href='{config.get("MANAGER")}'>менеджера</a>"
     )
-
-    if instance.car_medias.exists():
-        image_url = instance.car_medias.first().media.url
+    if instance.main_image:
+        image_url = instance.main_image.url
         full_image_url = f"{env.str("DOMAIN")}{image_url}"
         telegram_url = f"https://api.telegram.org/bot{config.get('BOT_TOKEN')}/sendPhoto"
         print(full_image_url, '--------------------------------------------------------')
@@ -58,6 +57,6 @@ def send_car_to_channel(sender, instance, created, **kwargs):
 
     try:
         res = requests.post(telegram_url, data=data, timeout=5)
+        print(f'{res.json()}-----------------------------------------')
     except requests.exceptions.RequestException as e:
         print(f"Telegramga yuborishda xatolik: {e}")
-    # print(f'{res.json()}-----------------------------------------')

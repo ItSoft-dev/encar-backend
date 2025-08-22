@@ -32,7 +32,8 @@ class Car(BaseModel):
     name = models.CharField(max_length=200)
     region = models.ForeignKey(Region, on_delete=models.SET_NULL, related_name='cars', null=True)
     is_sold = models.BooleanField(default=False)
-    
+    main_image = models.ImageField(upload_to='car/images/', null=True)
+
     def __str__(self):
         return self.name
     
