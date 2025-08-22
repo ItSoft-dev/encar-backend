@@ -11,8 +11,8 @@ from core.apps.shared.site_config import get_email_config
 
 @receiver(post_save, sender=Car)
 def send_car_to_channel(sender, instance, created, **kwargs):
-    # if not created:
-    #     return
+    if not created:
+        return
     config = get_email_config()
     caption = (
         f"🚗 Новое объявление:\n\n" 
