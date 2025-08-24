@@ -4,7 +4,7 @@ from core.apps.shared.models import BaseModel
 
 
 class Brand(BaseModel):
-    name = models.CharField(max_length=200, unique=True, db_index=True)
+    name = models.CharField(max_length=200, db_index=True)
     icon = models.ImageField(upload_to='brand/icons/', null=True, blank=True)
 
     def __str__(self):
@@ -16,7 +16,7 @@ class Brand(BaseModel):
 
 
 class Model(BaseModel):
-    name = models.CharField(max_length=200, unique=True, db_index=True)
+    name = models.CharField(max_length=200, db_index=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='models')
 
     def __str__(self):
@@ -28,7 +28,7 @@ class Model(BaseModel):
 
 
 class Generation(BaseModel):
-    name = models.CharField(max_length=200, unique=True, db_index=True)
+    name = models.CharField(max_length=200, db_index=True)
     model = models.ForeignKey(Model, on_delete=models.CASCADE, related_name='generations')
 
     def __str__(self):
