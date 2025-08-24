@@ -38,7 +38,7 @@ urlpatterns = [
         ]
     )),
     # full -> post, delete, patch, get, get
-c    path('model/', include(
+    path('model/', include(
         [
             path('<uuid:brand_id>/list/', model_views.AdminModelByBrandListApiView.as_view()), 
             path('create/', model_views.AdminModelCreateApiView.as_view()),
