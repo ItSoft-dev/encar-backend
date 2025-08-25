@@ -1,0 +1,19 @@
+services:
+  backend:
+    container_name: encar_backend
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    env_file:
+      - .env
+    command:
+      - /bin/bash
+      - -c
+      - |
+        python manage.py makemigrations
+        python manage.py migrate
+        gunicorn --bind 0.0.0.0:8000 config.wsgi:application
+
+    restart: always
+    ports:
+      - "8659:8000"
